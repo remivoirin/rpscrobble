@@ -79,7 +79,7 @@ try:
 except Exception as exc:
 	print exc
 
-# Try to read songfile content if it exists.
+# Try to read songfile content if it exists
 songfilecontent = None
 try:
 	with open(songfilelocation, "r") as songfile:
@@ -88,16 +88,16 @@ try:
 except IOError as exc:
 	pass
 
-# Empty song file : write TS + track in songfile
+# Empty song file : write timestamp and track in songfile
 if not songfilecontent:
 	dumpsongfilecontent(currartist, currtitle)
 
 else:
-	# Not empty song file: let's check if it's changed.
+	# Not empty song file: let's check if it has changed
 	storedts, storedartist, storedtitle = splitsongfilecontent(songfilecontent)
 
 	# Current song has changed: try scrobbling!
-	# Can't know if half of the song was played, so make 120 seconds the only criteria.
+	# Can't know if half of the song was played, so make 120 seconds the only criteria
 	if currartist != storedartist or currtitle != storedtitle:
 		dumpsongfilecontent(currartist, currtitle)
 		if (int(datetime.now().strftime('%s')) - int(storedts)) > 120:
